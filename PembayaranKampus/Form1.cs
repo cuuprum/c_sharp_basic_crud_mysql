@@ -25,12 +25,14 @@ namespace PembayaranKampus
 
         public void tampilData()
         {
-            Db.DA = new System.Data.Odbc.OdbcDataAdapter("SELECT * FROM data_admin", Db.CONN);
+            String query = "SELECT `id`, `username`, `password`, `jabatan` FROM `data_admin`";
+            Db.DA = new System.Data.Odbc.OdbcDataAdapter(query, Db.CONN);
             Db.DS = new DataSet();
             DataTable table = new DataTable();
             Db.DA.Fill(table);
             dgvUser.DataSource = table;
             dgvUser.ReadOnly = true;
+            pbxProfile.BackgroundImage = Properties.Resources.user_bg;
         }
 
         public void TampilDataById(String _id) {
@@ -76,7 +78,7 @@ namespace PembayaranKampus
             }
             else
             { 
-                String query = String.Format("INSERT INTO `data_admin`(`id`, `username`, `password`, `jabatan`) VALUES ('{0}','{1}','{2}','{3}')", txtId.Text.Trim(), txtUsername.Text.Trim(), txtPassword.Text.Trim(), txtJabatan.Text.Trim());
+                String query = String.Format("INSERT INTO `data_admin`(`id`, `username`, `password`, `jabatan`, `image`) VALUES ('{0}','{1}','{2}','{3}', '{4}')", txtId.Text.Trim(), txtUsername.Text.Trim(), txtPassword.Text.Trim(), txtJabatan.Text.Trim(), SetImage(txtImageUrl.Text.Trim()));
                 txtJabatan.Text = query;
                 Db.CMD = new System.Data.Odbc.OdbcCommand(query, Db.CONN);
                 Db.CMD.ExecuteNonQuery();
@@ -94,7 +96,7 @@ namespace PembayaranKampus
             }
             else
             {
-                String query = String.Format("UPDATE `data_admin` SET `username`='{1}',`password`='{2}',`jabatan`='{3}' WHERE `id`='{0}'", txtId.Text.Trim(), txtUsername.Text.Trim(), txtPassword.Text.Trim(), txtJabatan.Text.Trim());
+                String query = String.Format("UPDATE `data_admin` SET `username`='{1}',`password`='{2}',`jabatan`='{3}', `image` = '{4}' WHERE `id`='{0}'", txtId.Text.Trim(), txtUsername.Text.Trim(), txtPassword.Text.Trim(), txtJabatan.Text.Trim(), SetImage(txtImageUrl.Text.Trim()));
                 txtJabatan.Text = query;
                 Db.CMD = new System.Data.Odbc.OdbcCommand(query, Db.CONN);
                 Db.CMD.ExecuteNonQuery();
@@ -158,9 +160,11 @@ namespace PembayaranKampus
             txtUsername.Clear();
             txtPassword.Clear();
             txtJabatan.Clear();
+            pbxProfile.BackgroundImage = Properties.Resources.user_bg;
+            pbxProfile.Image = null;
         }
 
-        private byte[] ImageData(String _imageUrl)
+        private byte[] SetImage(String _imageUrl)
         {
             FileStream fs;
             BinaryReader br;
@@ -179,6 +183,17 @@ namespace PembayaranKampus
             }
 
             return imageData;
+        }
+
+        // Masih blm bisa
+        private Image GetImage(byte[] _imageByte)
+        { 
+            MemoryStream ms = new MemoryStream();
+            ms.Write(_imageByte, 0, Convert.ToInt32(_imageByte.Length));
+            Bitmap bm = new Bitmap(ms,false);
+            ms.Dispose();
+
+            return bm;
         }
 
         private void dgvUser_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -233,11 +248,8 @@ namespace PembayaranKampus
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     txtImageUrl.Text = openFileDialog.FileName;
+                    pbxProfile.BackgroundImage = null;
                     pbxProfile.Image = Image.FromFile(openFileDialog.FileName);
-                }
-                else
-                {
-
                 }
             }
             catch (Exception _ex)
