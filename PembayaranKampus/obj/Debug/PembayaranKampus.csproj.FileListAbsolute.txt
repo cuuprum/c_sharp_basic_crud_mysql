@@ -1,0 +1,9 @@
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\bin\Debug\PembayaranKampus.exe.config
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.csprojResolveAssemblyReference.cache
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.frmUser.resources
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.Properties.Resources.resources
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.csproj.GenerateResource.Cache
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\bin\Debug\PembayaranKampus.exe
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\bin\Debug\PembayaranKampus.pdb
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.exe
+D:\wawabunny\csharp\PembayaranKampus\PembayaranKampus\obj\Debug\PembayaranKampus.pdb
